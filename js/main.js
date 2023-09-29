@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /* Variables */
 const input = document.querySelector('.js-input');
@@ -12,6 +12,7 @@ const favorites = document.querySelector('.js-favs');
 let seriesList = [];
 let seriesFav = [];
 
+const seriesLS = JSON.parse(localStorage.getItem('seriesList'));
 
 /* Pintar lista de series*/
 function renderSeriesList(listSeries) {
@@ -48,6 +49,7 @@ function addFavSerie() {
     renderSeriesFavs();
 }
 
+
 /* Pintar series favoritas*/
 function renderSeriesFavs() {
     favorites.innerHTML = "";
@@ -55,9 +57,38 @@ function renderSeriesFavs() {
         let drawSerie = '<div>';
         drawSerie += `<h2 class="title">${favSerie.name}</h2>`;
         drawSerie += `<img class="serieImg" src=${favSerie.image}>`;
+        drawSerie += '<button class="deleteFav">X</button>';
         drawSerie += '</div>';
         favorites.innerHTML += drawSerie;
     }
+    drawSerie += '<button class="deleteAllFavs">Borrar todo</button>'
+    const deleteFav = document.querySelectorAll('.deleteFav');
+        for (const oneDelete of deleteFav) {
+            oneDelete.addEventListener('click', removeFav);
+        }
+    
+    const deleteAllFavs = document.querySelectorAll('.deleteAllFavs');
+        for (const allDelete of deleteAllFavs) {
+            allDelete.addEventListener('click', removeAllFavs);
+        }
+}
+
+function removeFav(event) {
+    const btnDeleteFav = event.target;
+    // Encuentra el div padre del botón (que contiene la serie)
+    const parentSerie = btnDeleteFav.parentElement;
+    // Encuentra el índice de la serie en la lista de favoritos
+    const index = Array.from(favorites.children).indexOf(parentSerie);
+    // Elimina la serie de la lista de favoritos
+    seriesFav.splice(index, 1);
+    // Elimina el div de la serie del DOM
+    parentSerie.remove();
+}
+
+function removeAllFavs (event) {
+    event.preventDefault();
+    favorites.innerHTML = '';
+    seriesFav = []; 
 }
 
 /* Evento para buscar las series en la api y las pinta */
@@ -66,14 +97,21 @@ function handleSearch(event) {
 
     const name = input.value;
     
+    if (seriesLS !==null){
+        seriesList = seriesLS;
+        renderSeriesList(seriesList);
+    } else {
     fetch(`//api.tvmaze.com/search/shows?q=${name}`)
     .then((response) => response.json())
     .then((dataAPI) => {
         seriesList = dataAPI;
-        localStorage.setItem('show', JSON.stringify(seriesList));
+        localStorage.setItem('seriesList', JSON.stringify(seriesList));
         renderSeriesList(dataAPI);
     });
+    }
 }
+
+
 
 /* Ejecutar el evento click al dar al botón de buscar */
 searchBtn.addEventListener('click', handleSearch);
