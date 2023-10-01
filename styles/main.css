@@ -9,3 +9,65 @@
     flex-direction: row-reverse;
     justify-content: space-evenly
 }
+
+.js-series {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding-inline: 100px;
+    width: auto;
+    height: 500px;
+
+}
+h2 {
+    text-align: center;
+}
+.resultFav {
+    margin-left: 100px;
+}
+
+/* Estilo del contenedor de la imagen */
+.contenedor-imagen {
+    position: relative; /* Ajusta el ancho según tus necesidades */
+    height: 300px;
+    width: auto; /* Ajusta la altura según tus necesidades */
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Estilo del contenedor de la imagen con el corazón */
+.imagen-hover {
+    position: relative;
+    /* width: 100%;
+    height: 100%; */
+    transition: filter 0.3s; /* Transición suave del filtro de imagen */
+}
+
+/* Estilo de la imagen */
+.imagen-hover .serieImg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Estilo del corazón */
+.corazon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 70px;
+    color: rgb(240, 0, 0);
+    opacity: 0;
+    transition: opacity 0.3s; /*Transición suave de la opacidad */
+}
+
+/* Estilo del corazón cuando se pasa el ratón */
+.imagen-hover:hover .corazon {
+    opacity: 1; /* Hace que el corazón sea visible al pasar el ratón */
+}
+
+/* Estilo de la imagen borrosa al pasar el ratón */
+.imagen-hover:hover .serieImg {
+    filter: blur(5px); /* Aplica un efecto borroso */
+}

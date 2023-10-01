@@ -8,23 +8,32 @@ const messageError = document.querySelector('.js-msg-error')
 const series = document.querySelector('.js-series');
 const favorites = document.querySelector('.js-favs');
 
+const deleteAllFavs = document.querySelector('.js-delete-all');
+
 /*Arrays*/
 let seriesList = [];
 let seriesFav = [];
 
-const seriesLS = JSON.parse(localStorage.getItem('seriesList'));
+
+
+localStorage.setItem('seriesList', JSON.stringify(seriesList));
+
+const savedSeries = JSON.parse(localStorage.getItem('seriesList'));
+console.log(savedSeries.length);
 
 /* Pintar lista de series*/
 function renderSeriesList(listSeries) {
     series.innerHTML = '';
     for (const oneSerie of listSeries) {
-        let drawSerie = '<div class="clickSerie">';
+        let drawSerie = `<div id="${oneSerie.show.id}" class="clickSerie contenedor-imagen">`;
         drawSerie += `<h2 class="title">${oneSerie.show.name}</h2>`;
         if(oneSerie.show.image === null)
         {
-            drawSerie += '<img class="serieImg" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV">';
+            drawSerie += '<div class="imagen-hover"><img class="serieImg" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV">';
+            drawSerie += `<div class="corazon">&#10084;</div></div>`;
         }else{
-            drawSerie += `<img class="serieImg" src=${oneSerie.show.image.medium}>`;
+            drawSerie += `<div class="imagen-hover"><img class="serieImg" src=${oneSerie.show.image.medium}>`;
+            drawSerie += `<div class="corazon">&#10084;</div></div>`;
         }
         drawSerie += '</div>';
         series.innerHTML += drawSerie;
@@ -40,13 +49,16 @@ function renderSeriesList(listSeries) {
 /* Relleno el array de series favoritas y lo pinto */
 function addFavSerie() {
     const name = this.childNodes[0].innerHTML;
-    const imgSerie = this.childNodes[1].src;
+    const imgSerie = this.childNodes[1].childNodes[0].src;
     const dataSerie = {
+        'id' : this.id,
         'name' : name,
         'image' : imgSerie,
     };
     seriesFav.push(dataSerie);
     renderSeriesFavs();
+    
+    // localStorage.setItem('seriesFav', JSON.stringify(seriesFav));
 }
 
 
@@ -54,22 +66,24 @@ function addFavSerie() {
 function renderSeriesFavs() {
     favorites.innerHTML = "";
     for (const favSerie of seriesFav) {
-        let drawSerie = '<div>';
-        drawSerie += `<h2 class="title">${favSerie.name}</h2>`;
-        drawSerie += `<img class="serieImg" src=${favSerie.image}>`;
-        drawSerie += '<button class="deleteFav">X</button>';
-        drawSerie += '</div>';
-        favorites.innerHTML += drawSerie;
+        let drawSerieFav = `<div id="${favSerie.id}" class="getClassFav">`;
+        drawSerieFav += `<h2 class="title">${favSerie.name}</h2>`;
+        if(favSerie.image === null)
+        {
+            drawSerieFav += '<img class="serieImg" src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV">';
+            drawSerieFav += `<div class="corazon">X;</div>`;
+        }else{
+            drawSerieFav += `<img class="serieImg" src="${favSerie.image}">`;
+            drawSerieFav += `<div class="corazon">X;</div>`;
+        }
+        drawSerieFav += '<button class="deleteFav">X</button>';
+        drawSerieFav += '</div>';
+        favorites.innerHTML += drawSerieFav;
     }
-    drawSerie += '<button class="deleteAllFavs">Borrar todo</button>'
+    localStorage.setItem('seriesFav', JSON.stringify(seriesFav));
     const deleteFav = document.querySelectorAll('.deleteFav');
         for (const oneDelete of deleteFav) {
             oneDelete.addEventListener('click', removeFav);
-        }
-    
-    const deleteAllFavs = document.querySelectorAll('.deleteAllFavs');
-        for (const allDelete of deleteAllFavs) {
-            allDelete.addEventListener('click', removeAllFavs);
         }
 }
 
@@ -85,10 +99,10 @@ function removeFav(event) {
     parentSerie.remove();
 }
 
-function removeAllFavs (event) {
-    event.preventDefault();
+/* Dejo el HTML y el array vacio*/
+function removeAllFavs () {
+    seriesFav = [];
     favorites.innerHTML = '';
-    seriesFav = []; 
 }
 
 /* Evento para buscar las series en la api y las pinta */
@@ -97,10 +111,6 @@ function handleSearch(event) {
 
     const name = input.value;
     
-    if (seriesLS !==null){
-        seriesList = seriesLS;
-        renderSeriesList(seriesList);
-    } else {
     fetch(`//api.tvmaze.com/search/shows?q=${name}`)
     .then((response) => response.json())
     .then((dataAPI) => {
@@ -109,11 +119,8 @@ function handleSearch(event) {
         renderSeriesList(dataAPI);
     });
     }
-}
-
-
 
 /* Ejecutar el evento click al dar al botón de buscar */
 searchBtn.addEventListener('click', handleSearch);
-
+deleteAllFavs.addEventListener('click', removeAllFavs);
 
