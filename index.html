@@ -5,17 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/main.css">
     <title>Buscador de series</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/d65782632e.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header>
+    <header class="header">
         <h1 class="title">Buscador de series</h1>      
-        <form>
+        <form class="form">
             <label for="input"></label>
-            <input class="js-input" type="text">
+            <input class="js-input" type="text" placeholder="Escribe aquí la serie que quieres encontrar">
             <div>
-                <button class="js-btn" type="submit">Buscar</button>
+                <button class="js-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </form>
+        <p class="js-message-error"></p>
     </header>
     <main>
 
@@ -24,10 +29,10 @@
                 <h2>Series encontradas</h2>
                 <div class="js-series"></div>
             </div>
-            <div>
+            <div class="favSection">
                 <h2>Mis favoritas</h2>
                 <button class="js-delete-all">Borrar todo</button>
-                <div class="js-favs resultFav "></div>
+                <div class="js-favs"></div>
             </div>
         </div>
 
