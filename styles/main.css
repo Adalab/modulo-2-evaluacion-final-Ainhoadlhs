@@ -5,9 +5,11 @@
 }
 
 .header {
-    background-image: u(./images/universo.jpg);
+    background-image: linear-gradient(to right bottom, #9981f0, #ffffff);
     text-align: center;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
+    padding-top: 20px;
+
 }
 .form{
     display: flex;
@@ -15,47 +17,70 @@
     align-items: center;
     gap: 10px;
 }
+.title-header {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    color: #60006d;
+    filter: drop-shadow( 3px 3px 1px rgb(255, 255, 255));
+    text-align: center;  
+
+}
 .title {
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     padding-top: 20px;
     padding-bottom: 10px;
+    text-align: center;  
+    filter: drop-shadow( 2px 2px 1px rgb(255, 255, 255));
 }
 
 .js-input {
-    border: solid 3px #289497;
+    border: solid 1px #60006d;
     border-radius: 5px;
     height: 30px;
-    width: 300px;
+    width: 250px;
 }
 
 .js-btn {
     font-size: 25px;
     cursor: pointer;
     border: none;
-    background-color: #9fedf0;
+    background-color: #ffffff00;
+    color: #60006d;
+    filter: drop-shadow( 3px 3px 1px rgb(255, 255, 255));
 }
 
 .container {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: space-evenly
+    justify-content: space-evenly;
+    padding-top: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+.seriesSection{
+    min-width: 1000px;
+}
+.favSection{
+    min-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
 }
 .clickSerie {
-    background-color: rgb(253, 210, 228);
+    background-color: #c6b9f1;
     padding: 20px 20px 10px 20px;
     border-radius: 5px;
-    border: solid 5px pink;
+    border: solid 3px #a690f0;
     display: flex;
     flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
 }
 .clickFavorite{
-    background-color: rgb(253, 210, 228);
     padding: 1px 20px 20px 20px;
-    border-radius: 5px;
-    border: solid 5px pink;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -72,8 +97,11 @@
     height: 500px;
 
 }
-h2 {
-    text-align: center;
+
+.title-html{
+    padding-bottom: 20px;    
+    filter: drop-shadow( 4px 4px 1px #c6b9f1);
+    text-align: center;  
 }
 .resultFav {
     margin-left: 100px;
@@ -106,19 +134,17 @@ h2 {
     opacity: 1; 
 }
 
-.imagen-hover:hover .serieImgFav {
+.imagen-hover:hover .serieImg {
     filter: blur(5px); 
 }
 
 .favorite {
-    background-color: #9fedf0; /* Cambia el color de fondo */
-    color: blue; /* Cambia el color de fuente */
-    border: solid 5px #3ee3e9;
+    background-color: #f5ced5;
+    color: #a008b4;
+    border: solid 3px #fdadba;
+    border-radius: 5px;
 }
 
-.favSection{
-    margin-left: 100px;
-}
 
 .deleteFav {
     width: 30px;

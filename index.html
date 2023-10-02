@@ -12,10 +12,10 @@
 </head>
 <body>
     <header class="header">
-        <h1 class="title">Buscador de series</h1>      
+        <h1 class="title-header">Buscador de series</h1>      
         <form class="form">
             <label for="input"></label>
-            <input class="js-input" type="text" placeholder="Escribe aquí la serie que quieres encontrar">
+            <input class="js-input" type="text" placeholder="¡Busca tu serie favorita!">
             <div>
                 <button class="js-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
@@ -25,15 +25,16 @@
     <main>
 
         <div class="container">
-            <div>
-                <h2>Series encontradas</h2>
+            <div class="seriesSection">
+                <h2 class="title-html">Series encontradas</h2>
                 <div class="js-series"></div>
             </div>
-            <div class="favSection">
-                <h2>Mis favoritas</h2>
-                <button class="js-delete-all">Borrar todo</button>
-                <div class="js-favs"></div>
-            </div>
+
+                <div class="favSection">
+                    <h2 class="title-html">Mis favoritas</h2>
+                    <button class="js-delete-all">Borrar todo</button>
+                    <div class="js-favs"></div>
+                </div>
         </div>
 
     </main>
